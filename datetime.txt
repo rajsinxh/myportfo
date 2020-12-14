@@ -1,0 +1,93 @@
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+
+
+#
+# Complete the 'dateandtime' function below.
+#
+# The function accepts INTEGER val as parameter.
+# The return type must be LIST.
+#
+import datetime
+
+def dateandtime(val,tup):
+    # print(val,tup)
+    # Write your code here
+    ls=[]
+    if val==1:
+        my_date=datetime.date(tup[0],tup[1],tup[2])
+        ls.append(my_date)
+        ls.append(my_date.strftime("%d/%m/%Y"))
+        return ls
+    
+    elif val==2:
+        my_date=datetime.datetime.fromtimestamp(tup[0])
+        my_date=my_date.date()
+        ls.append(my_date)
+        return ls
+    
+    elif val==3:
+        my_time=datetime.time(tup[0],tup[1],tup[2])
+        ls.append(my_time)
+        if tup[0]>12 and tup[0]<24:
+            if tup[0]-12<10:
+                ls.append('0'+str(tup[0]-12))
+            else:
+                ls.append(str(tup[0]-12))
+        elif tup[0]==24:
+            ls.append('0'+str(0))
+        else:
+            if tup[0]<10:
+                ls.append('0'+str(tup[0]))
+            else:
+                ls.append(str(tup[0]))
+        return ls
+            
+    elif val==4:
+        my_date=datetime.date(tup[0],tup[1],tup[2])
+        dd=my_date.strftime("%A")
+        ls.append(dd)
+        dm=my_date.strftime("%B")
+        ls.append(dm)
+        tt = my_date.timetuple()
+        if tt[7]<10:
+            tx='00'+str(tt[7])
+            ls.append(tx)
+        elif tt[7]>=10 and tt[7]<100:
+            tx='0'+str(tt[7])
+            ls.append(tx)
+        else:
+            ls.append(str(tt[7]))
+        return ls
+    
+    elif val==5:
+        my_date=datetime.datetime(tup[0],tup[1],tup[2],tup[3],tup[4],tup[5])
+        ls.append(my_date)
+        return ls
+
+if __name__ == '__main__':
+    val = int(input().strip())
+    
+    if val ==1 or val==4 or val ==3:
+        qw1_count=3
+    if val==2:
+        qw1_count=1
+    if val ==5:
+        qw1_count=6
+    qw1 = []
+
+    for _ in range(qw1_count):
+        qw1_item = int(input().strip())
+        qw1.append(qw1_item)
+        
+    tup=tuple(qw1)
+    
+    ans = dateandtime(val,tup)
+    
+    print(ans)
